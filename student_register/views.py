@@ -29,3 +29,19 @@ def student_register_add(request):
       'form':form  
     }
     return render(request,'student_register/student_register_add.html',context)
+
+
+
+def student_register_update(request,id):
+    student=Student.objects.get(id=id)
+    form=StudentForm(instance=student)
+    if request.method=='POST':
+        form=StudentForm(request.POST,instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('list')
+    
+    context={
+        'form':form
+    }
+    return render(request,'student_register/student_register_update.html',context)
