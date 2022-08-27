@@ -42,6 +42,19 @@ def student_register_update(request,id):
             return redirect('list')
     
     context={
-        'form':form
+        'form':form,
+        'student' : student
     }
     return render(request,'student_register/student_register_update.html',context)
+
+
+def student_register_delete(request,id):
+    student=Student.objects.get(id=id)
+    if request.method=='POST':
+        student.delete()
+        return redirect("list")
+        
+    context={
+            'student':student
+    }
+    return render(request,"student_register/student_register_delete.html",context)
